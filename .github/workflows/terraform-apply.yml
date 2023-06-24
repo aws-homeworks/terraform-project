@@ -19,7 +19,11 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform Init
-        run: terraform init
+        run: |
+          terraform init \
+            -backend-config="region=us-east-1" \
+            -backend-config="bucket=bucket-for-gh-terraform-state" \
+            -backend-config="key=terraform.tfstate"
       
       - name: Terraform Validate
         run: terraform validate
